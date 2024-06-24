@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { IProduct } from "../../types/IProduct";
-import { ProductsList } from '../../components/Products/ProductsList';
+import { ProductsList } from "../../components/Products/ProductsList";
 
 type Props = {
   onError: (message: string) => void;
@@ -14,7 +14,7 @@ export const ProductsPage: React.FC<Props> = ({ onError }) => {
 
   const getProducts = () => {
     axios
-      .get("http://localhost:3100/products")
+      .get(`${import.meta.env.VITE_API_URL}/products/`)
       .then((productsResponse) => {
         setProducts(productsResponse.data);
       })
@@ -32,7 +32,7 @@ export const ProductsPage: React.FC<Props> = ({ onError }) => {
 
   const productDeleteHandler = (productId: string) => {
     axios
-      .delete("http://localhost:3100/products/" + productId)
+      .delete(`${import.meta.env.VITE_API_URL}/products/` + productId)
       .then(getProducts)
       .catch((err) => {
         onError("Deleting the product failed. Please try again later");
